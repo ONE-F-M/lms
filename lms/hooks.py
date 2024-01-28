@@ -105,7 +105,14 @@ doc_events = {
 scheduler_events = {
 	"hourly": [
 		"lms.lms.doctype.lms_certificate_request.lms_certificate_request.schedule_evals"
-	]
+	],
+	"cron": {
+		"50 23 * * *": [# Runs everyday at 11:50 pm
+			'lms.lms.notification.notifications.notify_course_completion',
+			'lms.lms.notification.notifications.notify_assignment_submission',
+			'lms.lms.notification.notifications.notify_quiz_submission'
+		]
+	}
 }
 
 fixtures = ["Custom Field", "Function", "Industry"]

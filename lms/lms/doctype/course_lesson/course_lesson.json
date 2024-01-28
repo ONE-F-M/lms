@@ -67,7 +67,7 @@
   },
   {
    "fieldname": "body",
-   "fieldtype": "Markdown Editor",
+   "fieldtype": "Text Editor",
    "ignore_xss_filter": 1,
    "label": "Body",
    "reqd": 1
@@ -135,7 +135,7 @@
   },
   {
    "fieldname": "instructor_notes",
-   "fieldtype": "Markdown Editor",
+   "fieldtype": "Text Editor",
    "label": "Instructor Notes"
   }
  ],
