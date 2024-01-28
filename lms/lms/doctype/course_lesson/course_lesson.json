@@ -19,6 +19,7 @@
   "column_break_9",
   "quiz_id",
   "section_break_16",
+  "lms_assignment",
   "question",
   "column_break_15",
   "file_type",
@@ -118,9 +119,11 @@
   },
   {
    "description": "Assignment will appear at the bottom of the lesson.",
+   "fetch_from": "lms_assignment.question",
    "fieldname": "question",
    "fieldtype": "Small Text",
-   "label": "Question"
+   "label": "Question",
+   "read_only": 1
   },
   {
    "fieldname": "file_type",
@@ -137,11 +140,17 @@
    "fieldname": "instructor_notes",
    "fieldtype": "Markdown Editor",
    "label": "Instructor Notes"
+  },
+  {
+   "fieldname": "lms_assignment",
+   "fieldtype": "Link",
+   "label": "LMS Assignment",
+   "options": "LMS Assignment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-29 17:04:19.252897",
+ "modified": "2024-01-28 10:24:50.684900",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "Course Lesson",
