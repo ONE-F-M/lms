@@ -222,9 +222,16 @@
         </a>
 
         {% elif membership %}
+        {% set progress = frappe.utils.cint(membership.progress) %}
         <a class="btn btn-primary wide-button" id="continue-learning"
             href="{{ get_lesson_url(course.name, lesson_index) }}{{ course.query_parameter }}">
-            {{ _("Continue Learning") }}
+            {% if progress == 0 %}
+              {{ _("Start Learning") }}
+            {% elif progress == 100 %}
+              {{ _("Course Completed") }}
+            {% else %}
+              {{ progress }}% {{ _("Completed, ") }}{{ _("Continue Learning") }}
+            {% endif %}
         </a>
 
         {% elif course.paid_course and not is_instructor %}
@@ -237,8 +244,6 @@
             {{ _("Start Learning") }}
         </div>
         {% endif %}
-
-        {% set progress = frappe.utils.cint(membership.progress) %}
 
         {% if membership and course.enable_certification %}
             {% if certificate %}

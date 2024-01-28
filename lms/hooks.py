@@ -105,7 +105,14 @@ doc_events = {
 scheduler_events = {
 	"hourly": [
 		"lms.lms.doctype.lms_certificate_request.lms_certificate_request.schedule_evals"
-	]
+	],
+	"cron": {
+		"50 23 * * *": [# Runs everyday at 11:50 pm
+			'lms.lms.notification.notifications.notify_course_completion',
+			'lms.lms.notification.notifications.notify_assignment_submission',
+			'lms.lms.notification.notifications.notify_quiz_submission'
+		]
+	}
 }
 
 fixtures = ["Custom Field", "Function", "Industry"]
@@ -173,7 +180,8 @@ website_route_rules = [
 		"to_route": "cohorts/join",
 	},
 	{"from_route": "/users", "to_route": "profiles/profile"},
-	{"from_route": "/jobs/<job>", "to_route": "jobs/job"},
+	{"from_route": "/job-openings", "to_route": "jobs_openings/index"},
+	{"from_route": "/job-openings/<job>", "to_route": "jobs_openings/job"},
 	{
 		"from_route": "/batches/<batchname>/students/<username>",
 		"to_route": "/batches/progress",
