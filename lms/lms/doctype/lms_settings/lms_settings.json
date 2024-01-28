@@ -54,8 +54,15 @@
   "email_templates_tab",
   "certification_template",
   "batch_confirmation_template",
+  "assignment_submission_template",
   "column_break_uwsp",
-  "assignment_submission_template"
+  "course_completion_notification_template",
+  "quiz_submission_template",
+  "notification_settings_tab",
+  "notify_instructor_course_completion_eod",
+  "notify_instructor_assignment_submission_eod",
+  "column_break_6xas",
+  "notify_instructor_quiz_submission_eod"
  ],
  "fields": [
   {
@@ -348,12 +355,54 @@
    "fieldname": "show_day_view",
    "fieldtype": "Check",
    "label": "Show Day View in Timetable"
+  },
+  {
+   "fieldname": "course_completion_notification_template",
+   "fieldtype": "Link",
+   "label": "Course Completion Notification Template",
+   "options": "Email Template"
+  },
+  {
+   "fieldname": "notification_settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Notification Settings"
+  },
+  {
+   "default": "0",
+   "description": "Check it true to send the course completion notification to the instructors assigned in the corse by end of the day(at 11:50 pm)\nYou can configure custom 'Course Completion Notification Template' from the Email Templates tab.",
+   "fieldname": "notify_instructor_course_completion_eod",
+   "fieldtype": "Check",
+   "label": "Notify Instructor on Course Completion by EOD"
+  },
+  {
+   "default": "0",
+   "description": "Check it true to send the assignment submission notification to the instructors assigned in the corse by end of the day(at 11:50 pm)\nYou can configure custom 'Assignment Submission Template' from the Email Templates tab.\n\nCheck it false will send the assignment submission notification right after the creation",
+   "fieldname": "notify_instructor_assignment_submission_eod",
+   "fieldtype": "Check",
+   "label": "Notify Instructor on Assignment Submission by EOD"
+  },
+  {
+   "fieldname": "column_break_6xas",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Check it true to send the quiz submission notification to the instructors assigned in the corse by end of the day(at 11:50 pm)\nYou can configure custom 'Quiz Submission Notification Template' from the Email Templates tab.",
+   "fieldname": "notify_instructor_quiz_submission_eod",
+   "fieldtype": "Check",
+   "label": "Notify Instructor on Quiz Submission by EOD"
+  },
+  {
+   "fieldname": "quiz_submission_template",
+   "fieldtype": "Link",
+   "label": "Quiz Submission Notification Template",
+   "options": "Email Template"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-12-12 10:32:13.638368",
+ "modified": "2024-01-23 13:24:01.428877",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Settings",
