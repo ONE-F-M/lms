@@ -80,6 +80,13 @@ def upload_assignment(
 	assignment_details = frappe.db.get_value(
 		"LMS Assignment", assignment, ["type", "grade_assignment"], as_dict=1
 	)
+	if not assignment_details and not assignment and lesson:
+		assignment = frappe.get_value("Course Lesson",lesson,'lms_assignment')
+		assignment_details = frappe.db.get_value(
+				"LMS Assignment", assignment, ["type", "grade_assignment"], as_dict=1
+			)
+		
+			
 	assignment_type = assignment_details.type
 
 	if assignment_type in ["URL", "Text"] and not answer:

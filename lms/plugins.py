@@ -229,7 +229,7 @@ def assignment_renderer(detail):
 		"Video": "video/*",
 	}
 	question = detail.split("-")[0]
-	file_type = detail.split("-")[1]
+	file_type = frappe.db.get_value("Course Lesson",{'question':question},'file_type') or "PDF"
 	accept = supported_types[file_type] if file_type else ""
 	return frappe.render_template(
 		"templates/assignment.html",
