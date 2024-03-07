@@ -12,6 +12,7 @@
   "livecode_url",
   "course_settings_section",
   "search_placeholder",
+  "training_manager",
   "column_break_iqxy",
   "portal_course_creation",
   "section_break_szgq",
@@ -397,12 +398,18 @@
    "fieldtype": "Link",
    "label": "Quiz Submission Notification Template",
    "options": "Email Template"
+  },
+  {
+   "fieldname": "training_manager",
+   "fieldtype": "Link",
+   "label": "Training Manager",
+   "options": "User"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-01-23 13:24:01.428877",
+ "modified": "2024-03-05 12:15:53.289659",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Settings",
