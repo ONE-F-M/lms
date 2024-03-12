@@ -84,10 +84,20 @@ class LMSBatch(Document):
 			"student_name": student.student_name,
 			"start_time": self.start_time,
 			"start_date": self.start_date,
+			"end_date":self.end_date,
+			"end_time":self.end_time,
 			"medium": self.medium,
 			"name": self.name,
 		}
-
+		if self.courses:
+			args['courses'] = " \n ".join([i.title for i in self.courses])
+		#Add all the fields in the document
+		doc_dict = self.as_dict()
+		doc_keys = doc_dict.keys()
+		if doc_keys:
+			for each in doc_keys:
+				if not args.get(each):
+					args[each] = doc_dict.get(each)
 		if custom_template:
 			email_template = get_email_template(custom_template, args)
 			subject = email_template.get("subject")
