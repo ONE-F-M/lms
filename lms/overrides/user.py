@@ -84,6 +84,13 @@ class CustomUser(User):
 
 		return mentored_courses
 
+	def after_insert(self):
+		# Add LMS Student role on user creation if not already added
+		# On new user signup using SSO, LMS student role is not added by default
+		roles = frappe.get_roles(self.name)
+		if "LMS Student" not in roles:
+			self.add_roles("LMS Student")
+
 
 def get_enrolled_courses():
 	in_progress = []
