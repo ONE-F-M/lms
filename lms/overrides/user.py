@@ -3,6 +3,7 @@ import frappe
 import requests
 from frappe import _
 from frappe.core.doctype.user.user import User
+from frappe.desk.doctype.notification_settings.notification_settings import create_notification_settings
 from frappe.utils import cint, escape_html, random_string
 from frappe.website.utils import is_signup_disabled
 from lms.lms.utils import get_average_rating, get_country_code
@@ -85,6 +86,10 @@ class CustomUser(User):
 		return mentored_courses
 
 	def after_insert(self):
+		create_notification_settings(self.name)
+		frappe.cache.delete_key("users_for_mentions")
+		frappe.cache.delete_key("enabled_users")
+
 		# Add LMS Student role on user creation if not already added
 		# On new user signup using SSO, LMS student role is not added by default
 		roles = frappe.get_roles(self.name)
