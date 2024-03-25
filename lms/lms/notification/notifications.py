@@ -14,7 +14,7 @@ def notify_course_completion():
     # Get all completed course(LMS Enrollment) that not send the notification to instructor
     query = '''
         select
-            course, member_name, name
+            course, member_name, member, name
         from
             `tabLMS Enrollment`
         where
@@ -27,7 +27,7 @@ def notify_course_completion():
     for item in enrollment_details:
         if item.course not in enrollments:
             enrollments[item.course] = {'course': item.course, 'members': [], 'names': []}
-        enrollments[item.course]['members'].append(item.member_name)
+        enrollments[item.course]['members'].append(item.member)
         enrollments[item.course]['names'].append(item.name)
     enrollments = list(enrollments.values())
 
@@ -101,7 +101,7 @@ def notify_assignment_submission():
     # Get all Assignment Submission that not send the notification to instructor
     query = '''
         select
-            course, lesson, member_name, name, assignment_title, assignment
+            course, lesson, member_name, member, name, assignment_title, assignment
         from
             `tabLMS Assignment Submission`
         where
@@ -115,7 +115,7 @@ def notify_assignment_submission():
     for item in submission_details:
         if item.course not in submissions:
             submissions[item.course] = {'course': item.course,  'assignment_title': item.assignment_title, 'members': [], 'names': []}
-        member_details = {'member': item.member_name, 'assignment_submission': item.name, 'assignment_title': item.assignment_title}
+        member_details = {'member': item.member_name, 'member_id': item.member, 'assignment_submission': item.name, 'assignment_title': item.assignment_title}
         submissions[item.course]['members'].append(member_details)
         submissions[item.course]['names'].append(item.name)
     submissions = list(submissions.values())
@@ -189,7 +189,7 @@ def notify_quiz_submission():
     # Get all Quiz Submission that not send the notification to instructor
     query = '''
         select
-            quiz, course, member_name, name
+            quiz, course, member_name, member, name, score, IF(percentage >= passing_percentage, "PASS", "FAIL") as result
         from
             `tabLMS Quiz Submission`
         where
@@ -203,7 +203,7 @@ def notify_quiz_submission():
     for item in submission_details:
         if item.course not in submissions:
             submissions[item.course] = {'course': item.course,  'quiz': frappe.db.get_value('LMS Quiz', item.quiz, 'title'), 'members': [], 'names': []}
-        member_details = {'member': item.member_name, 'quiz_submission': item.name}
+        member_details = {'member': item.member_name, 'member_id': item.member, 'quiz_submission': item.name, 'score': item.score, 'result': item.result}
         submissions[item.course]['members'].append(member_details)
         submissions[item.course]['names'].append(item.name)
     submissions = list(submissions.values())
