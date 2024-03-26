@@ -1,10 +1,42 @@
+<!--
+    Available data format -> 
+    {
+        'assignment_title': 'Assignment Title', 
+        'members': [{
+            'member': 'John Doe', 
+            'assignment_submission': 'ASG-SUB-XXXXX', 
+            'assignment_title': 'Assignment Title'
+        }]
+    }
+-->
 <p>
-    {{ _("The under-listed learners have submitted the assignment {0}").format(frappe.bold(assignment_title)) }}
+    {{ _("The following trainees have submitted their assignments.") }}
 </p>
 <br>
-<p> {{ _("Members (Assignment Link):") }} </p>
-<ul>
-{% for member in members %}
-<li> {{ member['member'] }} (<a href="app/lms-assignment-submission/{{ member['assignment_submission'] }}">{{ assignment_title }}</a>)</li>
-{% endfor %}
-</ul>
+<table class="table table-bordered table-condensed">
+    <thead>
+    <tr>
+      <th class="text-center">SI No.</th>
+      <th class="text-center">ID Number</th>
+      <th class="text-center">Trainee Name</th>
+      <th class="text-center">Course Name</th>
+      <th class="text-center">Assignment Topic</th>
+      <th class="text-center">Submission Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for member in members %}
+        {% set user = frappe.db.get_value("User", member.member_id, ["username"], as_dict=True) %}
+        {% set course = frappe.db.get_value("LMS Course", member["course"], ["title", "name", "image"], as_dict=True) %}    
+        {% set submission_date = frappe.db.get_value("LMS Assignment Submission", member["assignment_submission"], ["creation"], as_dict=True) %}    
+        <tr>
+          <td class="text-center">{{ loop.index }}</th>
+          <td class="text-center">{{ user.username }}</th>
+          <td class="text-center">{{ member['member'] }}</td>
+          <td class="text-center">{{ course.title }}</td>
+          <td class="text-center"><a href="app/lms-assignment-submission/{{ member['assignment_submission'] }}">{{ assignment_title }}</a></td>
+          <td class="text-center">{{ frappe.format(submission_date['creation'], {'fieldtype': 'Date'}) }}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

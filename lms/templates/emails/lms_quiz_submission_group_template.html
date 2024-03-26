@@ -1,10 +1,49 @@
+<!--
+    Available data format -> 
+    {
+        'course': 'avsec-awareness-awareness-course', 
+        'quiz' 'Security Awareness Course Evaluation',
+        'members': [{'member': 'John Doe', 'member_id': 'johndoe@gmail.com', 'quiz_submission': '4645asa23', 'score': 87, 'result': 'PASS'}], 
+        'names': ['4645asa23']  (IDs of LMS Quiz submission)
+    }
+-->
+{% set date = frappe.format_date(frappe.utils.today()) %}
+{% set course = frappe.db.get_value("LMS Course", course, ["title", "name", "image"], as_dict=True) %}    
 <p>
-    {{ _("The under-listed learners have submitted the quiz {0}").format(frappe.bold(quiz)) }}
+    {{ _("The following trainees have submitted their quiz.") }}
 </p>
 <br>
-<p> {{ _("Members (Assignment Link):") }} </p>
-<ul>
-{% for member in members %}
-<li> {{ member['member'] }} (<a href="/app/lms-quiz-submission/{{ member['quiz_submission'] }}">{{ quiz }}</a>)</li>
-{% endfor %}
-</ul>
+<table class="table table-bordered table-condensed">
+    <thead>
+    <tr>
+      <th class="text-center">SI No.</th>
+      <th class="text-center">ID Number</th>
+      <th class="text-center">Trainee Name</th>
+      <th class="text-center">Course Name</th>
+      <th class="text-center">Quiz Submission</th>
+      <th class="text-center">Evaluation Score</th>
+      <th class="text-center">Result</th>
+      <th class="text-center">Date of Submission</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for member in members %}
+        {% set quiz = frappe.db.get_value("LMS Quiz Submission", member.quiz_submission, ["creation", "quiz"], as_dict=True) %}
+        {% set user = frappe.db.get_value("User", member.member_id, ["username"], as_dict=True) %}
+        <tr>
+          <td class="text-center">{{ loop.index }}</th>
+          <td class="text-center">{{ user.username }}</th>
+          <td class="text-center">{{ member.member }}</td>
+          <td class="text-center">{{ course.title }}</td>
+          <td class="text-center">
+            <a href="app/lms-quiz-submission/{{ member['quiz_submission'] }}">
+              {{ frappe.db.get_value("LMS Quiz", quiz.quiz, "title")}}
+            </a>
+          </td>
+          <td class="text-center">{{ member.score }}</td>
+          <td class="text-center">{{ member.result }}</td>
+          <td class="text-center">{{ frappe.format(quiz['creation'], {'fieldtype': 'Date'}) }}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
