@@ -86,3 +86,4 @@ lms.patches.v1_0.change_jobs_url #17-01-2024
 lms.patches.v2_0.remove_desk_access_to_student_role 
 lms.patches.v2_0.create_notification_settings
 lms.patches.v2_0.create_email_templates
+lms.patches.v2_0.update_employee_id_quiz_assignment_submission
