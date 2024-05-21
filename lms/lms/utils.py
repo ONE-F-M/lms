@@ -632,6 +632,12 @@ def create_notification_log(doc, topic):
 		"Course Instructor", {"parent": course}, pluck="instructor"
 	)
 
+	if topic.reference_doctype == "LMS Batch":
+		link = f"/batches/{topic.reference_docname}#discussions"
+	if topic.reference_doctype == "Course Lesson":
+		lesson_index = get_lesson_index(topic.reference_docname)
+		link = get_lesson_url(course, lesson_index)
+
 	notification = frappe._dict(
 		{
 			"subject": _("New reply on the topic {0}").format(topic.title),
@@ -640,6 +646,7 @@ def create_notification_log(doc, topic):
 			"document_name": topic.reference_docname,
 			"for_user": topic.owner,
 			"from_user": doc.owner,
+			"link": link,
 			"type": "Alert",
 		}
 	)
