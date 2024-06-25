@@ -65,6 +65,12 @@
                 {{ _("All Courses") }}
             </div>
 
+            <div class="category-cards-wrapper">
+                {% for category in categories %}
+                    {{ widgets.CategoryCard(category=category) }}
+                {% endfor %}
+            </div>
+
             <ul class="nav lms-nav" id="courses-tab">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#live">

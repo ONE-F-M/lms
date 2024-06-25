@@ -23,6 +23,7 @@ def get_context(context):
 	context.created_courses = get_authored_courses(None, False)
 	context.review_courses = get_courses_under_review()
 	context.restriction = check_profile_restriction()
+	context.categories = get_course_categories()
 
 	portal_course_creation = frappe.db.get_single_value(
 		"LMS Settings", "portal_course_creation"
@@ -64,6 +65,7 @@ def get_courses():
 			"currency",
 			"creation",
 			"amount_usd",
+			"custom_category",
 		],
 	)
 
@@ -88,3 +90,7 @@ def get_courses():
 	upcoming_courses.sort(key=lambda x: x.enrollment_count, reverse=True)
 
 	return live_courses, upcoming_courses
+
+def get_course_categories():
+	categories = frappe.get_all("LMS Course Category")
+	return categories

@@ -21,6 +21,7 @@
   "instructors",
   "tags",
   "status",
+  "category",
   "section_break_7",
   "published",
   "column_break_10",
@@ -240,6 +241,12 @@
    "fieldname": "amount_usd",
    "fieldtype": "Currency",
    "label": "Amount (USD)"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "LMS Course Category"
   }
  ],
  "is_published_field": "published",
@@ -266,7 +273,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-12-21 12:27:32.559901",
+ "modified": "2024-06-25 09:47:21.454728",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Course",

@@ -42,7 +42,11 @@ frappe.ready(() => {
 	});
 
 	$("#course-filter").change((e) => {
-		filter_courses(e);
+		sort_courses(e);
+	});
+
+	$(".category-card").click((e) => {
+		filter_courses_by_category(e)
 	});
 });
 
@@ -435,7 +439,7 @@ const save_batch = (values) => {
 	});
 };
 
-const filter_courses = (e) => {
+const sort_courses = (e) => {
 	const course_lists = $(".course-cards-parent");
 	const filter = $(e.currentTarget).val();
 	course_lists.each((i, list) => {
@@ -447,4 +451,29 @@ const filter_courses = (e) => {
 		});
 		$(list).append(course_cards);
 	});
+};
+
+const filter_courses_by_category = (e) => {	
+	const selectedCategory = $(e.currentTarget).attr("data-name");
+    $(".category-card").removeClass("active");
+    $(e.currentTarget).addClass("active");
+
+	$(".course-cards-parent").each((i, parent) => {
+        const course_cards = $(parent).children(".course-card");
+        
+		// Filter courses according to selected category
+        const categorized_course_cards = course_cards.filter((index, card) => {
+            const category = $(card).data('category');
+            return selectedCategory === '' || category === selectedCategory;
+        });
+
+        course_cards.hide();
+        categorized_course_cards.show();
+
+		// Fetch target pane ID
+		const tabPaneID = $(parent).closest('.tab-pane').attr('id')
+
+		// Update badge count according to categorized course count
+		$('.nav-link[href="#' + tabPaneID + '"]').find('.course-list-count').text(categorized_course_cards.length)
+    });
 };
