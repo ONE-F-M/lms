@@ -26,6 +26,17 @@
 
 			<div class="course-list-menu">
 
+                <select class="lms-menu" id="category-filter">
+                    <option value="">
+                        {{ _("All Courses") }}
+                    </option>
+                    {% for category in categories %}
+                        <option value="{{ category.name }}">
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
                 <select class="lms-menu" id="course-filter">
                     <option disabled value="">
                         {{ _("Sort By") }}
@@ -63,12 +74,6 @@
 
             <div class="page-title mb-6">
                 {{ _("All Courses") }}
-            </div>
-
-            <div class="category-cards-wrapper">
-                {% for category in categories %}
-                    {{ widgets.CategoryCard(category=category) }}
-                {% endfor %}
             </div>
 
             <ul class="nav lms-nav" id="courses-tab">
