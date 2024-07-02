@@ -246,7 +246,7 @@
    "fieldname": "category",
    "fieldtype": "Link",
    "label": "Category",
-   "options": "LMS Course Category"
+   "options": "LMS Category"
   }
  ],
  "is_published_field": "published",
