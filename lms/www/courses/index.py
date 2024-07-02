@@ -65,7 +65,7 @@ def get_courses():
 			"currency",
 			"creation",
 			"amount_usd",
-			"custom_category",
+			"category",
 		],
 	)
 
