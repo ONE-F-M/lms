@@ -45,7 +45,7 @@ frappe.ready(() => {
 		sort_courses(e);
 	});
 
-	$(".category-card").click((e) => {
+	$("#category-filter").change((e) => {
 		filter_courses_by_category(e)
 	});
 });
@@ -453,10 +453,8 @@ const sort_courses = (e) => {
 	});
 };
 
-const filter_courses_by_category = (e) => {	
-	const selectedCategory = $(e.currentTarget).attr("data-name");
-    $(".category-card").removeClass("active");
-    $(e.currentTarget).addClass("active");
+const filter_courses_by_category = (e) => {
+	const selectedCategory = $(e.currentTarget).val();
 
 	$(".course-cards-parent").each((i, parent) => {
         const course_cards = $(parent).children(".course-card");
