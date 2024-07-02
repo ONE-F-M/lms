@@ -92,5 +92,5 @@ def get_courses():
 	return live_courses, upcoming_courses
 
 def get_course_categories():
-	categories = frappe.get_all("LMS Course Category")
+	categories = frappe.get_all("LMS Category")
 	return categories
