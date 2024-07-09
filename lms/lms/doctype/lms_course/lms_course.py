@@ -370,6 +370,7 @@ def is_re_enrollment_allowed(course):
 def re_enroll_member(course,member):
 	enrollment = frappe.get_doc("LMS Enrollment", { "course": course, "member": member })
 	enrollment.progress = 0
+	enrollment.current_lesson = ""
 	enrollment.save(ignore_permissions=True)
 
 @frappe.whitelist()
