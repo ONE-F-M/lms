@@ -368,6 +368,9 @@ def is_re_enrollment_allowed(course):
 	return frappe.db.get_value("LMS Course", course, "allow_reenrollments")
 
 def re_enroll_member(course,member):
+	# Delete member's existing course progress
+	frappe.db.delete("LMS Course Progress", { "course": course, "member": member })
+
 	enrollment = frappe.get_doc("LMS Enrollment", { "course": course, "member": member })
 	enrollment.progress = 0
 	enrollment.current_lesson = ""
