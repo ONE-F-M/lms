@@ -24,6 +24,7 @@
   "category",
   "section_break_7",
   "published",
+  "allow_reenrollments",
   "column_break_10",
   "upcoming",
   "column_break_12",
@@ -247,6 +248,12 @@
    "fieldtype": "Link",
    "label": "Category",
    "options": "LMS Category"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_reenrollments",
+   "fieldtype": "Check",
+   "label": "Allow Re-Enrollments"
   }
  ],
  "is_published_field": "published",
@@ -273,7 +280,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2024-06-25 09:47:21.454728",
+ "modified": "2024-07-08 08:40:36.917972",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Course",
