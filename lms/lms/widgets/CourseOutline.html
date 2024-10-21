@@ -1,5 +1,10 @@
 {% set chapters = get_chapters(course.name) %}
 {% set is_instructor = is_instructor(course.name) %}
+{% set lessons_progress = {} %}
+
+{% if membership %}
+    {% set lessons_progress = get_course_lessons_progress(course.name) %}
+{% endif %}
 
 {% if chapters | length %}
 <div class="course-home-outline">
@@ -68,8 +73,8 @@
 
                     <span>{{ lesson.title }}</span>
 
-                    {% if membership %}
-                    <svg class="icon icon-md lesson-progress-tick ml-auto {{ get_progress(course.name, lesson.name) != 'Complete' and 'hide' }}">
+                    {% if membership and lessons_progress %}
+                    <svg class="icon icon-md lesson-progress-tick ml-auto {{ lessons_progress[lesson.name] != 'Complete' and 'hide' }}">
                         <use class="" href="#icon-success">
                     </svg>
                     {% endif %}
