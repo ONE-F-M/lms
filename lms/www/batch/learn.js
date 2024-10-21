@@ -1,24 +1,11 @@
 frappe.ready(() => {
-	this.marked_as_complete = false;
-	let self = this;
-
 	frappe.telemetry.capture("on_lesson_page", "lms");
 
 	fetch_assignments();
 
 	save_current_lesson();
 
-	$(window).scroll(() => {
-		let self = this;
-		if (
-			!$("#status-indicator").length &&
-			!self.marked_as_complete &&
-			$(".title").hasClass("is-member")
-		) {
-			self.marked_as_complete = true;
-			mark_progress();
-		}
-	});
+	activate_reading_timer();
 
 	$("#certification").click((e) => {
 		create_certificate(e);
@@ -49,6 +36,36 @@ const save_current_lesson = () => {
 			lesson_name: $(".title").attr("data-lesson"),
 		});
 	}
+};
+
+const activate_reading_timer = () => {
+	// If 'Completed' indicator exists or user not member of the course then return
+	if (
+		$("#status-indicator").length ||
+		!$(".title").hasClass("is-member")
+	) {
+		return
+	}
+
+	const nextLessonButton = $(".btn.next")
+	const initialContent = nextLessonButton.text();
+	
+    let timeLeft = 10;
+
+	nextLessonButton.addClass("disabled");
+
+    const timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+            nextLessonButton.text(`Please wait for ${timeLeft} seconds`);
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+
+			mark_progress()
+            nextLessonButton.text(initialContent);
+            nextLessonButton.removeClass("disabled");
+        }
+    }, 1000);
 };
 
 const mark_progress = () => {

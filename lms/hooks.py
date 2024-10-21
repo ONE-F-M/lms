@@ -240,6 +240,7 @@ jinja = {
 		"lms.lms.utils.get_chapters",
 		"lms.lms.utils.get_slugified_chapter_title",
 		"lms.lms.utils.get_progress",
+		"lms.lms.utils.get_course_lessons_progress",
 		"lms.lms.utils.render_html",
 		"lms.lms.utils.is_mentor",
 		"lms.lms.utils.is_cohort_staff",
